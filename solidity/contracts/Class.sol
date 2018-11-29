@@ -1,5 +1,5 @@
 pragma solidity ^0.4.0;
 
-interface Class {
-    
+contract Class {
+    function getName() public view returns(string memory);
 }
