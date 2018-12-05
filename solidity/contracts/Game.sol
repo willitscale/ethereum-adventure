@@ -15,6 +15,11 @@ contract Game {
         _;
     }
 
+    modifier hasCharacter {
+        require(_characters[msg.sender].isSet() == 1, "Character does not exist for address");
+        _;
+    }
+
     constructor() public {
         _owner = msg.sender;
     }
