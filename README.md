@@ -20,3 +20,11 @@ Video : [Ethereum Adventure : Building a game on the blockchain part 3](https://
 Source : [Tutorial 3 Branch](https://github.com/willitscale/ethereum-adventure/tree/tutorial-03)
 
 Slides : [Ethereum Adventure - Part 3](https://docs.google.com/presentation/d/1Bfs6YlhijOQ5buckv2UZGpSJirTCOPD1gLVTmn_jYxk/edit?usp=sharing)
+
+### Tutorial 4
+Video : [Ethereum Adventure : Building a game on the blockchain part 4](https://www.youtube.com/watch?v=rLr5eGO69Hc)
+
+Source : [Tutorial 4 Branch](https://github.com/willitscale/ethereum-adventure/tree/tutorial-04)
+
+Slides : [Ethereum Adventure - Part 4](https://docs.google.com/presentation/d/1vgTTnbCSJyRqdaJ1i6RQnlLC1uS0T6A4pLzlePjv35k/edit?usp=sharing)
+

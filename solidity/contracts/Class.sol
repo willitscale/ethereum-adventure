@@ -1,7 +1,11 @@
 pragma solidity ^0.4.0;
 
+import "./Skill.sol";
+
 contract Class {
     string private _name;
+
+    uint private _class;
     
     uint private _hitPoints;
     uint private _manaPoints;
@@ -10,8 +14,11 @@ contract Class {
     uint private _intelligence;
     uint private _strength;
 
+    Skill[] internal _skills;
+
     constructor(
         string memory name,
+        uint class,
         uint hitPoints,
         uint manaPoints,
         uint agility,
@@ -19,6 +26,7 @@ contract Class {
         uint strength
     ) public {
         _name = name;
+        _class = class;
         _hitPoints = hitPoints;
         _manaPoints = manaPoints;
         _agility = agility;
@@ -28,6 +36,10 @@ contract Class {
 
     function getName() public view returns(string memory) {
         return _name;
+    }
+
+    function getClass() public view returns(uint) {
+        return _class;
     }
 
     function getHitPoints() public view returns(uint) {

@@ -2,10 +2,14 @@ pragma solidity ^0.4.0;
 
 import "./Character.sol";
 import "./Class.sol";
+import "./CombatEngine.sol";
+import "./Skill.sol";
 
 contract Game {
     
     address private _owner;
+
+    CombatEngine private _combatEngine;
 
     mapping(address => Character) private _characters;
     mapping(string => Class) private _classes;
@@ -22,6 +26,7 @@ contract Game {
 
     constructor() public {
         _owner = msg.sender;
+        _combatEngine = new CombatEngine();
     }
 
     function createCharacter(string memory name, string memory class) public {
@@ -38,5 +43,9 @@ contract Game {
 
     function removeClass(string memory key) public isOwner {
         delete _classes[key];
+    }
+
+    function attack(Character character, Skill skill) public view returns(uint) {
+        return _combatEngine.attack(_characters[msg.sender], character, skill);
     }
 }
