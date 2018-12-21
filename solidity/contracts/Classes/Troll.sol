@@ -2,11 +2,9 @@ pragma solidity ^0.4.0;
 
 import "../Class.sol";
 import "../Skills/Attack.sol";
-import "../Skills/Fireball.sol";
 
-contract Wizard is Class("Wizard", 2, 100, 20, 2, 16, 2) {
+contract Rogue is Class("Troll", 11, 50, 0, 2, 0, 2) {
     constructor() public {
         _skills.push(new Attack());
-        _skills.push(new Fireball());
     }
 }
