@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 import "./Game.sol";
 import "./Character.sol";
@@ -14,12 +14,9 @@ contract CombatEngine {
 
     function attack(Character attacker, Character defender, Skill skill) public view returns (uint) {
         if (PYHSICAL_SKILL == skill.getSkillType()) {
-            return ((attacker.getStrength() * 2) + attacker.getAgility()) - 
-                ((defender.getAgility() * 2) + defender.getStrength()) + 
-                (attacker.getAgility() / 4);
+            return ((attacker.getStrength() * 2) + attacker.getAgility()) - ((defender.getAgility() * 2) + defender.getStrength()) + (attacker.getAgility() / 4);
         } else if (MAGICAL_SKILL == skill.getSkillType()) {
-            return ((attacker.getIntelligence() * 2) + attacker.getAgility() + skill.getDamage()) - 
-                ((defender.getAgility() * 2) + defender.getIntelligence());
+            return ((attacker.getIntelligence() * 2) + attacker.getAgility() + skill.getDamage()) - ((defender.getAgility() * 2) + defender.getIntelligence());
         }
         return 0;
     }

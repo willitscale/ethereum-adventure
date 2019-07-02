@@ -1,0 +1,15 @@
+version: "3.0"
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/apps
+    working_dir: /apps
+    ports:
+      - 3000:3000
+    command: sh -c "npx create-react-app webapp &&
+                    cd webapp && 
+                    npm install && 
+                    npm install drizzle --save &&
+                    npm start"

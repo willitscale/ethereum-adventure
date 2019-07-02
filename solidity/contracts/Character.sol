@@ -1,10 +1,10 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 import "./Class.sol";
 import "./Libraries/SafeMath.sol";
 
 contract Character {
-    
+
     using SafeMath for uint;
 
     address private _game;
@@ -103,5 +103,4 @@ contract Character {
     function setStrength(uint strength) public isGame {
         _strength = strength;
     }
-
 }

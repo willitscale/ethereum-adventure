@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.2;
 
 contract Skill {
     string private _name;

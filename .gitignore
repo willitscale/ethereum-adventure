@@ -1,1 +1,3 @@
-build
+solidity/build
+webapp/node_modules
+node_modules
