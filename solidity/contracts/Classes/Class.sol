@@ -1,6 +1,6 @@
 pragma solidity ^0.5.2;
 
-import "./Skill.sol";
+import "../Skills/Skill.sol";
 
 contract Class {
     string private _name;
@@ -24,7 +24,7 @@ contract Class {
         uint agility,
         uint intelligence,
         uint strength
-    ) public {
+    ) internal {
         _name = name;
         _class = class;
         _hitPoints = hitPoints;

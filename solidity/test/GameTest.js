@@ -1,40 +1,53 @@
-let Game = artifacts.require("./Game.sol");
-let Character = artifacts.require("./Character.sol");
-let Class = artifacts.require("./Class.sol");
+const Game = artifacts.require("./Game.sol");
+const Character = artifacts.require("./Characters/Character.sol");
+const Class = artifacts.require("./Classes/Class.sol");
+const Warrior = artifacts.require("./Classes/Warrior.sol");
 
 const PROVIDED_NAME = "TEST";
 const PROVIDED_CLASS = "Warrior";
 
 contract("Game", (accounts) => {
 
-    let creatorAccount = accounts[0];
-    let characterAccount = accounts[1];
+    const creatorAccount = accounts[0];
+    const characterAccount = accounts[1];
 
-    let _game;
+    let setGame;
 
     it("should create a character with the name and class provided", () => {
-        let _character;
-        let _class;
+        let setCharacter;
+        let setClass;
 
         return Game.deployed()
             .then(instance => {
-                _game = instance;
-                return _game.createCharacter(PROVIDED_NAME, PROVIDED_CLASS, { from: creatorAccount });
+                setGame = instance;
+                return Warrior.deployed();
+            })
+            .then(warrior => {
+                return setGame.addClass("Warrior", warrior.address);
             })
             .then(() => {
-                return _game.getCharacter();
+                return setGame.createCharacter(PROVIDED_NAME, PROVIDED_CLASS, { from: creatorAccount });
+            })
+            .then(() => {
+                return setGame.getCharacter();
             })
             .then(instance => {
-                _character = Character.at(instance);
-                return _character.getName();
+                return Character.at(instance);
+            })
+            .then(returnedCharacter => {
+                setCharacter = returnedCharacter;
+                return setCharacter.getName();
             })
             .then(name => {
                 assert.equal(name, PROVIDED_NAME, "Failed to create a character with the provided name");
-                return _character.getClass();
+                return setCharacter.getClass();
             })
             .then(instance => {
-                _class = Class.at(instance);
-                return _class.getName();
+                return Class.at(instance);
+            })
+            .then(returnedClass => {
+                setClass = returnedClass;
+                return setClass.getName();
             })
             .then(name => {
                 assert.equal(name, PROVIDED_CLASS, "Failed to create a character with the provided class");
@@ -42,25 +55,27 @@ contract("Game", (accounts) => {
     });
 
     it("should not allow me to set attributes of a character", () => {
-        let _character;
-        let _class;
+        let setCharacter;
 
         return Game.deployed()
             .then(instance => {
-                _game = instance;
-                return _game.createCharacter(PROVIDED_NAME, PROVIDED_CLASS, { from: characterAccount });
+                setGame = instance;
+                return setGame.createCharacter(PROVIDED_NAME, PROVIDED_CLASS, { from: characterAccount });
             })
             .then(() => {
-                return _game.getCharacter({ from: characterAccount });
+                return setGame.getCharacter({ from: characterAccount });
             })
             .then(instance => {
-                _character = Character.at(instance);
-                return _character.setStrength(200, { from: characterAccount });
+                return Character.at(instance);
+            })
+            .then(returnedCharacter => {
+                setCharacter = returnedCharacter;
+                return setCharacter.setStrength(200, { from: characterAccount });
             })
             .catch(error => {
                 assert.equal(
                     error.message,
-                    "VM Exception while processing transaction: revert Request did not come from the game",
+                    "Returned error: VM Exception while processing transaction: revert Request did not come from the game -- Reason given: Request did not come from the game.",
                     "Exception not thrown when setting attributes of character with invalid address"
                 );
             });

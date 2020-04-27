@@ -1,19 +1,22 @@
-let Game = artifacts.require("Game");
-
-let Rogue = artifacts.require("Classes/Rogue");
-let Troll = artifacts.require("Classes/Troll");
-let Wizard = artifacts.require("Classes/Wizard");
-let Warrior = artifacts.require("Classes/Warrior");
+const Game = artifacts.require("Game");
+const Rogue = artifacts.require("Classes/Rogue");
+const Troll = artifacts.require("Classes/Troll");
+const Wizard = artifacts.require("Classes/Wizard");
+const Warrior = artifacts.require("Classes/Warrior");
+const NonPlayableCharacter = artifacts.require("Characters/NonPlayableCharacter");
+const MyStringStore = artifacts.require("MyStringStore");
 
 module.exports = function (deployer) {
   let _game;
   deployer.deploy(Game)
     .then((instance) => { _game = instance; return deployer.deploy(Rogue); })
-    .then(() => { return _game.addClass("Rogue", Rogue.address); })
+    .then(() => { return _game.addPlayableClass("Rogue", Rogue.address); })
     .then(() => { return deployer.deploy(Wizard); })
-    .then(() => { return _game.addClass("Wizard", Wizard.address); })
+    .then(() => { return _game.addPlayableClass("Wizard", Wizard.address); })
     .then(() => { return deployer.deploy(Warrior); })
-    .then(() => { return _game.addClass("Warrior", Warrior.address); })
+    .then(() => { return _game.addPlayableClass("Warrior", Warrior.address); })
     .then(() => { return deployer.deploy(Troll); })
-    .then(() => { return _game.addClass("Troll", Troll.address); });
+    .then(() => { return _game.addNonPlayableClass("Troll", Troll.address); });
+  
+  deployer.deploy(MyStringStore);
 };

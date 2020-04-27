@@ -1,3 +1,3 @@
 solidity/build
 webapp/node_modules
-node_modules
+webapp/src/contracts

@@ -1,7 +1,7 @@
 pragma solidity ^0.5.2;
 
-import "./Class.sol";
-import "./Libraries/SafeMath.sol";
+import "../Classes/Class.sol";
+import "../Libraries/SafeMath.sol";
 
 contract Character {
 
@@ -29,7 +29,7 @@ contract Character {
         _;
     }
 
-    constructor(string memory name, Class class) public {
+    constructor(string memory name, Class class) internal {
         _game = msg.sender;
         _name = name;
         _class = class;
@@ -102,5 +102,9 @@ contract Character {
 
     function setStrength(uint strength) public isGame {
         _strength = strength;
+    }
+
+    function setClass(Class class) public isGame {
+        _class = class;
     }
 }

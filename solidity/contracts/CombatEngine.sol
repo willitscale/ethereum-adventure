@@ -1,8 +1,7 @@
 pragma solidity ^0.5.2;
 
-import "./Game.sol";
-import "./Character.sol";
-import "./Skill.sol";
+import "./Characters/Character.sol";
+import "./Skills/Skill.sol";
 import "./Libraries/SafeMath.sol";
 
 contract CombatEngine {
