@@ -6,12 +6,11 @@ import * as serviceWorker from './serviceWorker';
 
 import { Drizzle } from "@drizzle/store";
 
-import MyStringStore from "./contracts/MyStringStore.json";
 import Game from "./contracts/Game.json";
 
 // let drizzle know what contracts we want and how to access our test blockchain
 const options = {
-  contracts: [MyStringStore, Game],
+  contracts: [Game],
   web3: {
     fallback: {
       type: "ws",

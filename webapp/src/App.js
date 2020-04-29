@@ -9,8 +9,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const { drizzle } = this.props;
 
+    const { drizzle } = this.props;
+    
     this.unsubscribe = drizzle.store.subscribe(() => {
       const drizzleState = drizzle.store.getState();
       if (drizzleState.drizzleStatus.initialized) {
