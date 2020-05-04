@@ -7,29 +7,36 @@ import PlayableClass from './contracts/PlayableClass.json';
 class Game extends React.Component {
   state = { dataKey: null };
 
-  async componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.createCharacter = this.createCharacter.bind(this);
+    this.getCharacter = this.getCharacter.bind(this);
+  }
+
+  componentDidMount() {
     const { drizzle } = this.props;
-    const gameContract = drizzle.contracts.Game;
+    const { Game } = drizzle.contracts;
     const state = drizzle.store.getState();
 
     if (state.drizzleStatus.initialized) {
-      const gameDataKey = gameContract.methods['_gameVersion'].cacheCall();
+      const gameDataKey = Game.methods['_gameVersion'].cacheCall();
+      this.setState({ gameDataKey });
+    }
+  }
 
-      // gameContract.methods.createPlayableCharacter("Bob", "Warrior").send({}, (error, result) => {
-      //   console.log(error, result);
-      // });
+  async getCharacter() {
+    const { drizzle } = this.props;
+    const { Game } = drizzle.contracts;
+    const state = drizzle.store.getState();
+    
+    if (state.drizzleStatus.initialized) {
 
-      let characterAddress = await gameContract.methods.getPlayableCharacter().call();
-
-      //console.log(PlayableCharacter);
-      //console.log(GameContractJson.networks);
+      let characterAddress = await Game.methods.getPlayableCharacter().call();
 
       PlayableCharacter.networks = GameContractJson.networks;
       PlayableCharacter.networks['5777'].address = characterAddress;
 
       drizzle.addContract(PlayableCharacter);
-
-      //console.log(drizzle);
 
       let classAddress = await drizzle.contracts.PlayableCharacter.methods.getClass().call();
 
@@ -45,15 +52,33 @@ class Game extends React.Component {
       drizzle.addContract(PlayableClass);
 
       console.log('Class Name: ' + await drizzle.contracts.PlayableClass.methods.getName().call());
+    }
+  }
 
-      this.setState({ gameDataKey });
+  async createCharacter() {
+    const { drizzle } = this.props;
+    const { Game } = drizzle.contracts;
+    const state = drizzle.store.getState();
+    
+    if (state.drizzleStatus.initialized) {
+    console.log(Game);
+    Game.methods.createPlayableCharacter("test", "Warrior").send({}, (error, result) => {
+        console.log(error, result);
+      });
     }
   }
 
   render() {
     const { Game } = this.props.drizzleState.contracts;
     const gameVersion = Game['_gameVersion'][this.state.gameDataKey];
-    return <p>Game Version: {gameVersion && gameVersion.value}</p>;
+    return (
+      <div>
+      <p>Game Version: {gameVersion && gameVersion.value}</p>
+      <button onClick={this.createCharacter}>Create Character</button>
+      <button onClick={this.getCharacter}>Get Character</button>
+      </div>
+    );
+  
   }
 }
 
